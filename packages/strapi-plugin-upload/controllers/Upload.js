@@ -32,7 +32,7 @@ module.exports = {
     }
 
     // Transform stream files to buffer
-    const buffers = await strapi.plugins.upload.services.upload.bufferize(ctx.request.body.files.files);
+    const buffers = await strapi.plugins.upload.services.upload.bufferize(ctx.request.body.files.files, ctx.request.body.fields.directory);
     const enhancedFiles = buffers.map(file => {
       if (file.size > config.sizeLimit) {
         return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Upload.status.sizeLimit', values: {file: file.name} }] }] : `${file.name} file is bigger than limit size!`);

@@ -23,7 +23,7 @@ function niceHash(buffer) {
 }
 
 module.exports = {
-  bufferize: async files => {
+  bufferize: async (files, directory) => {
     if (_.isEmpty(files) === 0) {
       throw 'Missing files.';
     }
@@ -45,7 +45,7 @@ module.exports = {
           tmpPath: stream.path,
           name: stream.name,
           sha256: niceHash(buffer),
-          hash: uuid().replace(/-/g, ''),
+          hash: directory+'/'+stream.name.split('.').slice(0, -1).join('.').replace(/-/g, ''),
           ext:
             stream.name.split('.').length > 1
               ? `.${_.last(stream.name.split('.'))}`
